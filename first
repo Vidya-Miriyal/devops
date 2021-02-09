@@ -1,0 +1,19 @@
+export API_KEY= yourapikey
+
+nano request.json
+
+{
+  "config": {
+      "encoding":"FLAC",
+      "languageCode": "en-US"
+  },
+  "audio": {
+      "uri":"gs://cloud-training/gsp323/task4.flac"
+  }
+}
+
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > result.json
+
+gsutil cp result.json gs://PROJECT-marking/task4-gcs.result
+
+cat result.json
