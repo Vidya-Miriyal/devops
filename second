@@ -1,0 +1,39 @@
+gcloud auth list
+
+gsutil cp gs://cloud-training/gsp323/lab.csv .
+
+gsutil cp gs://cloud-training/gsp323/lab.schema .
+
+cat lab.schema
+
+###############################
+
+1) navigation ->BigQuery -> create dataset and create table
+2)navigation -> storage -> create bucket
+3)navigation ->data flow -> create job
+4)navigation -> dataproc ->create cluster (after click on cluster)
+5) navigation -> dataprep
+6)navigation -> IAM &admin(credentials)
+
+
+## Task 4.
+
+export API_KEY= yourapikey
+
+nano request.json
+
+{
+  "config": {
+      "encoding":"FLAC",
+      "languageCode": "en-US"
+  },
+  "audio": {
+      "uri":"gs://cloud-training/gsp323/task4.flac"
+  }
+}
+
+curl -s -X POST -H "Content-Type: application/json" --data-binary @request.json "https://speech.googleapis.com/v1/speech:recognize?key=${API_KEY}" > result.json
+
+gsutil cp result.json gs://PROJECT-marking/task4-gcs.result
+
+cat result.json
